@@ -83,6 +83,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'OPTIONS': {
             'read_default_file': 'C://Users//Perhaps//Desktop//SWE//SWE_project//SWE_project//my.cnf',
+            'init_command': "SET sql_mode='STRICT_TRANS_TABLES'",
         },
     },
 }
@@ -130,3 +131,6 @@ LOGOUT_REDIRECT_URL = 'home'
 
 EMAIL_BACKEND = "django.core.mail.backends.filebased.EmailBackend"
 EMAIL_FILE_PATH = os.path.join('sent_emails')
+
+#AUTH_USER_MODEL = 'accounts.CustomUser'
+#AUTH_USER_MODEL = settings.AUTH_USER_MODEL
