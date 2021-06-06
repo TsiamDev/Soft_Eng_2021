@@ -1,0 +1,28 @@
+<!-- templates/home.html-->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }}!
+	<form method="post" action="{% url 'search_stores' %}">
+		<p>Store search...</p>
+		{% csrf_token %}
+		{{ form.as_p }}
+		<Button type="submit"> Submit </Button>
+	</form>
+	<!--
+	{% if searched %}
+		<p> You searched for {{ searched }}</p>
+	{% else %}
+		<p> You should search  for a store </p>
+	{% endif %} -->
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+  <a href="{% url 'signup' %}">Sign Up</a>
+  <a href="{% url 'store_signup' %}">Store Sign Up</a>
+  <a href="{% url 'password_reset' %}">Password Reset</a>
+{% endif %}
+{% endblock %}
