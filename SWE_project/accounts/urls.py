@@ -7,10 +7,17 @@ Created on Sun May 23 12:41:22 2021
 
 from django.urls import path
 
-from .views import SignUpView, PasswordReset
+#from .views import SignUpView, PasswordReset
+from .views import PasswordReset
+from .views import *
 
 
 urlpatterns = [
-    path('signup/', SignUpView.as_view(), name='signup'),
+    #path('signup/', SignUpView.as_view(), name='signup'),
+    path('signup/', signup, name='signup'),
+    path('store_signup/', store_signup, name='store_signup'),
+    #path('search_stores/', SearchBar.as_view(), name='search_stores'),
+    path('search_stores/', search_stores_view, name='search_stores'),
+    #path('signup/', home_view, name='signup'),
     path('password_reset_form/', PasswordReset.as_view(), name='password_reset_form'),
 ]
