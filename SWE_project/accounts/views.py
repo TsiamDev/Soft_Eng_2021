@@ -9,6 +9,8 @@ from django.views import generic
 
 from django.views.generic.edit import CreateView
 
+from django.http import HttpResponse
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -60,33 +62,34 @@ def home(request):
     return render(request, 'registration/store_signup.html', {'form': form})
 
 def search_stores_view(request):
-    breakpoint()
-    
     if request.method == "POST":
         print("regular POST")
-        form = StoreSearchForm(request.POST)
+        searched = request.POST['search_box']
+        try:
+            form = StoreSearchForm(request.POST)
+        except Exception as e:
+            print(e)
     else:
         print("custom POST")
         data = { 'search_box': 'aaa' }
-        form = StoreSearchForm(initial=data)
+        searched = data['search_box']
+        try:
+            form = StoreSearchForm(data)
+        except Exception as e:
+            print(e)
+
     if form.is_valid():
         #form.save()
         print("form is valid")
-        context = {
-            'form' : form
-        }
+        stores = Profile.objects.filter(store_name__contains=searched)
+        context = { 'form' : form, 'stores': stores }
     else:
-        print("empty contrext")
-        context = {}
-    
-    return render(request, 'search_stores.html', context)
-    """
-    if request.method == "POST":
-        send = { 'val': 'sent!' } 
-        return render(request, 'search_stores.html', {'send': send})
-    else:
-        return render(request, 'search_stores.html', {})
-    """
+        print("form is invalid")
+        context = { 'form' : form }
+
+    print("got here")
+    return render(request, 'search_stores.html', context)#HttpResponse(context)#
+
 """
 class SearchBar(CreateView):
     model = StoreSearchForm#Search_bar

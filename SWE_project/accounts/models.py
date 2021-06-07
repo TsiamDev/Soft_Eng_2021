@@ -14,6 +14,9 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     store_name = models.CharField(max_length=STORE_NAME_LENGTH, unique=True, blank=True)
 
+    def __str__(self):
+        return self.store_name
+
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
     if created:
