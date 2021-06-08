@@ -1,0 +1,6 @@
+- model: accounts.Profile
+    pk: 1
+    fields:
+        username: admin
+        password: admin4567
+        email: admin@admin.bg
