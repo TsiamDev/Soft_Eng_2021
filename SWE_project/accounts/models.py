@@ -14,6 +14,32 @@ class Profile(models.Model):
     birth_date = models.DateField(null=True, blank=True)
     store_name = models.CharField(max_length=STORE_NAME_LENGTH, unique=True, blank=True)
 
+    # one-to-many: FK
+    #favourites = models.ForeignKey('Profile', on_delete=models.CASCADE, blank=True, null=True, unique=False, default=None)
+    # Many-to-many: FKs
+    favourites = models.ManyToManyField('Profile')#, on_delete=models.CASCADE, blank=True, null=True, unique=False, default=None)
+    #User, on_delete=models.CASCADE)#, related_name='favourites', on_delete=models.CASCADE)
+
+    def __str__(self):
+        if self.store_name is not None:
+            return self.store_name
+        else:
+            return self.username
+
+    def get_store_name(self):
+        if self.store_name is not None:
+            return self.store_name
+        else:
+            return "Not a store"
+
+"""
+class Favourites(models.Model):
+    users = Man
+
+
+    def __str__(self):
+"""        
+        
 @receiver(post_save, sender=User)
 def update_user_profile(sender, instance, created, **kwargs):
     if created:

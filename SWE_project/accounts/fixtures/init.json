@@ -1,0 +1,40 @@
+[
+	{
+		"model": "auth.User",
+		"pk": 1,
+		"fields": {
+			"username": "admin",
+			"password": "admin4567",
+			"email": "admin@admin.gr",
+			"is_superuser": 1,
+			"is_active": 1
+		}
+	},	
+	{
+		"model": "auth.User",
+		"pk": 2,
+		"fields": {
+			"username": "user",
+			"password": "user4567",
+			"email": "user@user.gr",
+			"is_superuser": 0,
+			"is_active": 1,
+			"store_name": "2"
+		}
+	},
+	
+	{
+		"model": "auth.User",
+		"pk": 1,
+		"fields": {
+			"username": "store",
+			"password": "store0987",
+			"email": "store@store.gr",
+			"is_superuser": 0,
+			"is_active": 1,
+			"Profile": {
+				"store_name": "store"
+			}
+		}
+	}
+]

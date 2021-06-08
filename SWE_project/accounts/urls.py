@@ -18,6 +18,10 @@ urlpatterns = [
     path('store_signup/', store_signup, name='store_signup'),
     #path('search_stores/', SearchBar.as_view(), name='search_stores'),
     path('search_stores/', search_stores_view, name='search_stores'),
+    path('profile/', profile_view, name='profile'),
+    path('show_profile/<store_name>', show_profile_view, name='show_profile'),
+    path('favourites/', favourites_view, name='favourites'),
+    path('add_to_favourites/<store_id>', add_to_favourites_view, name='add_to_favourites'),
     #path('signup/', home_view, name='signup'),
     path('password_reset_form/', PasswordReset.as_view(), name='password_reset_form'),
 ]
