@@ -147,12 +147,19 @@ def favourites_view(request):
     user_profile = Profile.objects.get(id=request.user.id)
     print("favs " + str(user_profile.favourites.all()))
     
+    favs = {}
+    i = 0
+    for store in user_profile.favourites.all():
+        favs[i] = store.store_name
+        print("favs[i]: " + str(favs[i]))
+        i = i + 1
+    
     context = {
-            'favs': user_profile.favourites.all()
+            'favs': favs
         }
     print(user_profile.favourites)
        
-    return render(request, 'show_favourites.html', {})
+    return render(request, 'show_favourites.html', context)
     
 def add_to_favourites_view(request, store_id):
     # Get current user profile
