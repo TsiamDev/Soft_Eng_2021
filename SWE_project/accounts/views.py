@@ -12,6 +12,8 @@ from django.views.generic.edit import CreateView
 
 from django.http import HttpResponse
 
+import datetime
+
 def signup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
@@ -26,7 +28,7 @@ def signup(request):
             return redirect('home')
     else:
         form = SignUpForm()
-    return render(request, 'registration/signup.html', {'form': form})
+    return render(request, 'registration/signup2.html', {'form': form})
 
 def store_signup(request):
     if request.method == 'POST':
@@ -100,7 +102,7 @@ class PasswordReset(generic.CreateView):
 def profile_view(request):
     if request.user.is_authenticated:
         # Do something for authenticated users.
-        store = Profile.objects.get(pk=request.user.id)
+        store = Profile.objects.get(user_id=request.user.id)
         #breakpoint()
         context = { 'store_name': store.get_store_name(),
                     'last_login': request.user.last_login,
@@ -113,7 +115,7 @@ def profile_view(request):
 def show_profile_view(request, store_name):
     # store_name is unique
     #store = Profile.objects.get(store_name=store_name)
-    store = Profile.objects.get(pk=request.user.id)
+    store = Profile.objects.get(user_id=request.user.id)
     viewed_store = Profile.objects.get(store_name=store_name)
     
     cur_store = Profile.objects.get(user__profile=viewed_store.id)
@@ -144,7 +146,7 @@ def show_profile_view(request, store_name):
 
 def favourites_view(request):
     print(request.user)
-    user_profile = Profile.objects.get(id=request.user.id)
+    user_profile = Profile.objects.get(user_id=request.user.id)
     print("favs " + str(user_profile.favourites.all()))
     
     favs = {}
@@ -183,3 +185,41 @@ def add_to_favourites_view(request, store_id):
 
     context = { 'favs': favs }
     return render(request, 'show_favourites.html', context)
+    
+def make_appointment_view(request, store_name):
+    form = MakeAppointment()
+    #print(form)
+    print("store to fav: " + str(store_name))
+    context = {
+            'form': form,
+            'st_name': store_name,
+        }
+
+    return render(request, 'make_appointment.html', context)
+    
+def check_availability_view(request, store_name):
+    msg = ''
+    print("here!")
+    form = MakeAppointment()
+    print("store: " + str(store_name))
+    if request.method == 'POST':
+        print( request.POST['date'] )
+        store = Profile.objects.get(store_name=store_name)
+        #print(store)
+        #existing = Make_appointment_model.objects.get(profile_id=store.id)
+        #if existing is None:
+            #print(appointments.date)
+        time = datetime.datetime.strptime(request.POST['date'], "%Y/%m/%d %H:%M")
+        appointment = Make_appointment_model(date=time, profile_id=store.id)
+        appointment.save()
+        #else:
+         #   msg = 'Could not add appointment'
+    else:    
+        print('no POST')
+        
+    context = {
+            'form': form,
+            'st_name': store_name,
+            'msg': msg,
+        }
+    return render(request, 'make_appointment.html', context)
