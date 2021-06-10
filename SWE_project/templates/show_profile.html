@@ -1,0 +1,34 @@
+<!-- templates/show_profile.html-->
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+  Hi {{ user.username }} !
+  
+  <h2> Store Profile </h2>
+  <p> 
+	<label> username: {{ st_username }} </label> 
+	<br/>
+	<label> email: {{ st_email }} </label>
+	<br/>
+	<label> store name: {{ store_name }} </label> 
+	<br/>
+	<label> last login: {{ st_last_login }} </label>
+	<br/>
+	<label> date joined: {{ st_date_joined }} </label>
+	<br/>
+  </p>
+  
+  <p><a href="{% url 'logout' %}">Log Out</a></p>
+  <p><a href="{% url 'make_appointment' store_name %}">Make Appointment</a></p>
+  <p><a href="{% url 'add_to_favourites' st_id %}">Add to favourites</a></p>
+  <p><a href="{% url 'password_reset' %}">Password Reset</a></p>
+  <p><a href="{% url 'search_stores' %}">Search Stores</a></p>
+  
+{% else %}
+  <p>You are not logged in</p>
+  <a href="{% url 'login' %}">Log In</a>
+{% endif %}
+{% endblock %}

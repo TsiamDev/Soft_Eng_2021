@@ -11,13 +11,19 @@
 		{% csrf_token %}
 		{{ form.as_p }}
 		<Button type="submit"> Submit </Button>
+		<br/>
+		{% if stores %}
+			<h1>Stores found:</h1>
+			{% for store in stores %}
+				<a href="{% url 'show_profile' store.store_name %}"> {{ store }} </a>
+				<br/>
+			{% endfor %}
+		{% else %}
+			<h1>No Stores found</h1>
+		{% endif %}
 	</form>
-	<!--
-	{% if searched %}
-		<p> You searched for {{ searched }}</p>
-	{% else %}
-		<p> You should search  for a store </p>
-	{% endif %} -->
+	<p><a href="{% url 'logout' %}">Log Out</a></p>
+	<p><a href="{% url 'profile' %}">Profile</a></p>
 {% else %}
   <p>You are not logged in</p>
   <a href="{% url 'login' %}">Log In</a>
