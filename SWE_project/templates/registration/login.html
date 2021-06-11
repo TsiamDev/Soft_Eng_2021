@@ -90,7 +90,13 @@
         {{ form.password.errors }}
         </div>
         <button type="submit" name="login-btn" class="btn btn-primary btn-lg">Σύνδεση</button>
-        <p class="text-center">Δεν είσαι μέλος; <a href="{% url 'signup' %}"> Εγγραφή</a></p>
+        <p class="text-center">Δεν είσαι μέλος; 
+			<br/>
+			<a href="{% url 'signup' %}"> Εγγραφή</a>
+			<br/>
+		    <a href="{% url 'store_signup' %}">Εγγραφή καταστήματος</a>
+			<br/>
+		</p>
         <div style="font-size: 0.8em; text-align: center;"><a href="{% url 'password_reset' %}">Ξεχάσατε τον κωδικό σας;</a></div>
 
       </form>
