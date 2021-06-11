@@ -20,13 +20,13 @@ class Profile(models.Model):
     # Many-to-many: FKs
     favourites = models.ManyToManyField('Profile')#, on_delete=models.CASCADE, blank=True, null=True, unique=False, default=None)
     #User, on_delete=models.CASCADE)#, related_name='favourites', on_delete=models.CASCADE)
-
+    
     def __str__(self):
         if self.store_name is not None:
             return self.store_name
         else:
-            return self.username
-
+            return str(self.user)
+    
     def get_store_name(self):
         if self.store_name is not None:
             return self.store_name

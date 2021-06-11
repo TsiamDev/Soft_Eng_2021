@@ -165,13 +165,15 @@ def favourites_view(request):
     
 def add_to_favourites_view(request, store_id):
     # Get current user profile
-    prof = Profile.objects.get(user=request.user)
-    #print(prof)
+    #breakpoint()
+    prof = Profile.objects.get(user_id=request.user.id)
+    print(prof)
+    #breakpoint()
     print(prof.favourites.all())
     
     # Get selected store user profile
     selected = Profile.objects.get(user=store_id)
-    #print(selected)
+    print(selected)
     
     # Save favourite if it does not exist already
     prof.favourites.add(selected)

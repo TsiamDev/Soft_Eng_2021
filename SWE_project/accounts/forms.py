@@ -33,6 +33,9 @@ class StoreSearchForm(forms.ModelForm):
     
     class Meta:
         model = Search_bar_model
+        widgets = {
+            'search_box': forms.TextInput(attrs={'class': 'myclass'}),
+            }
         fields = ['search_box', ]
 
 class MakeAppointment(forms.ModelForm):  
